@@ -25,6 +25,8 @@ GameObject:
   - component: {fileID: 54855537773325404}
   - component: {fileID: 114026491316024000}
   - component: {fileID: 82891662217402514}
+  - component: {fileID: 114702777226265192}
+  - component: {fileID: 195534838050673252}
   m_Layer: 0
   m_Name: Goal
   m_TagString: Goal
@@ -39,7 +41,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1173200598140596}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.47, z: -0.0338}
+  m_LocalPosition: {x: 14.43, y: -29.118, z: 20.181}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -204,3 +206,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8aeaa59f3ab34712a1173a9b4356d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114702777226265192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1173200598140596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb5cf54559054b1c9f0771b4fb1244a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minDistanceTarget: 0
+  maxDistanceTarget: 0
+  waitTimer: 0
+  minTime: 5
+  maxTime: 10
+  isGoalChangeLocation: 1
+--- !u!195 &195534838050673252
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1173200598140596}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 1.05335
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2.1067
+  m_BaseOffset: 1.05335
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
