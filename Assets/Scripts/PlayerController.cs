@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class PlayerController : MonoBehaviour
 {
+	[SerializeField] AudioClip _winClip;
+	[SerializeField] AudioClip _loseClip;
 	[SerializeField] Radar _radar;
 	[SerializeField] float _moveSpeed;
 	private Rigidbody _rigidBody;
@@ -28,12 +31,14 @@ public class PlayerController : MonoBehaviour
 		if (collision.gameObject.CompareTag("Enemy"))
 		{
 			Debug.Log("You Lost!");
+			GetComponent<AudioSource>().PlayOneShot(_loseClip);
 			return;
 		}
 
 		if (collision.gameObject.CompareTag("Goal"))
 		{
 			Debug.Log("You Won!");
+			GetComponent<AudioSource>().PlayOneShot(_winClip);
 			return;
 		}
 	}
