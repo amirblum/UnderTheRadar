@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+	[SerializeField] Radar _radar;
 	[SerializeField] float _moveSpeed;
 	private Rigidbody _rigidBody;
 
@@ -15,6 +16,11 @@ public class PlayerController : MonoBehaviour
 	private void Update()
 	{
 		_rigidBody.velocity = new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical")) * _moveSpeed * Time.deltaTime;
+
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			Instantiate(_radar, transform.position, Quaternion.identity);
+		}
 	}
 
 	private void OnCollisionEnter(Collision collision)
