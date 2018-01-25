@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,27 +8,36 @@ public class Radarable : MonoBehaviour
 {
 	private MeshRenderer _mesh;
 
+	public event Action OnRadarHitEvent;
+	public event Action OnRadarEndEvent;
+
 	private void Awake()
 	{
 		_mesh = GetComponent<MeshRenderer>();
 		_mesh.enabled = false;
 	}
 
-	private void Start()
-	{
-		GameController.Instance.OnRadarEvent += ToggleVisibility;
-	}
-
-	private void ToggleVisibility()
+	public void OnRadarHit(float duration)
 	{
 		StopAllCoroutines();
-		StartCoroutine(ToggleVisibilityCoroutine());
+		StartCoroutine(RadarCoroutine(duration));
 	}
 
-	private IEnumerator ToggleVisibilityCoroutine()
+	private IEnumerator RadarCoroutine(float duration)
 	{
+		if (OnRadarHitEvent != null)
+		{
+			OnRadarEndEvent();
+		}
 		_mesh.enabled = true;
-		yield return new WaitForSeconds(GameController.Instance.radarDuration);
+		
+		yield return new WaitForSeconds(duration);
+		
 		_mesh.enabled = false;
+		
+		if (OnRadarEndEvent != null)
+		{
+			OnRadarEndEvent();
+		}
 	}
 }

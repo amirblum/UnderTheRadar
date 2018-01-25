@@ -6,11 +6,6 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
     public bool radarOn;
-	public float radarFrequency;
-	public float radarDuration;
-	private float _radarTimer;
-	
-	public event Action OnRadarEvent;
 
 	public static GameController Instance;
 
@@ -35,18 +30,6 @@ public class GameController : MonoBehaviour {
 
         // if player lost, decrease life. exit and show the main menu if finished life, otherwise
         // start again the level
-        
-		
-		// Do radar
-		if (_radarTimer > radarFrequency)
-		{
-			if (OnRadarEvent != null)
-			{
-				OnRadarEvent();
-			}
-			_radarTimer = 0.0f;
-		}
-		_radarTimer += Time.deltaTime;
 	}
     
     void WinGame () {
