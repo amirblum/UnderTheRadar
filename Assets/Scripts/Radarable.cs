@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MeshRenderer))]
+[RequireComponent(typeof(MeshRenderer), typeof(AudioSource))]
 public class Radarable : MonoBehaviour
 {
 	private MeshRenderer _mesh;
@@ -29,7 +29,10 @@ public class Radarable : MonoBehaviour
 		{
 			OnRadarHitEvent();
 		}
+		
 		_mesh.enabled = true;
+		
+		GetComponent<AudioSource>().Play();
 		
 		yield return new WaitForSeconds(duration);
 		

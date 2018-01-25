@@ -22,7 +22,7 @@ public class Radar : MonoBehaviour
 
 		if (_size > _maxSize)
 		{
-			Destroy(this.gameObject);
+			Destroy(gameObject);
 			return;
 		}
 		
