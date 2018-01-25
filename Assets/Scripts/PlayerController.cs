@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(AudioSource))]
 public class PlayerController : MonoBehaviour
 {
 	[SerializeField] AudioClip _winClip;
+	[SerializeField] GameObject _winUI;
+	[SerializeField] GameObject _loseUI;
 	[SerializeField] AudioClip _loseClip;
 	[SerializeField] Radar _radar;
 	[SerializeField] float _moveSpeed;
@@ -32,6 +35,10 @@ public class PlayerController : MonoBehaviour
 		{
 			Debug.Log("You Lost!");
 			GetComponent<AudioSource>().PlayOneShot(_loseClip);
+//			SceneManager.LoadScene(0);
+//			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+			Instantiate(_loseUI);
+			Time.timeScale = 0f;
 			return;
 		}
 
@@ -39,7 +46,8 @@ public class PlayerController : MonoBehaviour
 		{
 			Debug.Log("You Won!");
 			GetComponent<AudioSource>().PlayOneShot(_winClip);
-			return;
+			Instantiate(_winUI);
+			Time.timeScale = 0f;
 		}
 	}
 	
