@@ -76,3 +76,7 @@ web/Release
 # Custom
 Assets/Plugins/Editor/JetBrains
 ProjectSettings/ProjectVersion.txt
+Assets/PlayMaker/
+Assets/Gizmos/
+Assets/iTween/
+Assets/Plugins/
