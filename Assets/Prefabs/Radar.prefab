@@ -180,6 +180,24 @@ MonoBehaviour:
   _growSpeed: 75
   _growDirection: {x: 1, y: 0.5, z: 1}
   _hitDuration: 1
+  _fadeOutCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: -0.26490402
+      inSlope: -0.05040791
+      outSlope: -0.05040791
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.955719
+      value: 0.70046616
+      inSlope: 3.8222997
+      outSlope: 3.8222997
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!135 &135190345206552608
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -8,18 +8,33 @@ public class Radar : MonoBehaviour
 	[SerializeField] float _growSpeed;
 	[SerializeField] Vector3 _growDirection = new Vector3(1.0f, 1.0f, 1.0f);
 	[SerializeField] float _hitDuration;
+	[SerializeField] AnimationCurve _fadeOutCurve;
 
 	private float _size;
+	private Material _material;
 
 	private void Awake()
 	{
 		transform.localScale = Vector3.zero;
+		_material = GetComponent<Renderer>().material;
 	}
 
 	private void Update()
 	{
 		_size += _growSpeed * Time.deltaTime;
 
+//		if (_size > _maxSize / 2)
+//		{
+//			var color = _material.color;
+//			color.a = Mathf.Lerp(color.a, 0f, _size / _maxSize);
+//			_material.color = color;
+//		}
+		
+		var color = _material.color;
+		color.a = Mathf.SmoothStep(0.5f, 0f, _size / _maxSize);
+//		color.a = _fadeOutCurve.Evaluate(_size / _maxSize);
+		_material.color = color;
+		
 		if (_size > _maxSize)
 		{
 			Destroy(gameObject);
