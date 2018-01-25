@@ -27,7 +27,7 @@ public class Radarable : MonoBehaviour
 	{
 		if (OnRadarHitEvent != null)
 		{
-			OnRadarEndEvent();
+			OnRadarHitEvent();
 		}
 		_mesh.enabled = true;
 		
