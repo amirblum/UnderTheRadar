@@ -56,6 +56,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        obstacles = null;
+    }
+
     // Update is called once per frame
     void Update()
     {
