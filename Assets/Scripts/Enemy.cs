@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] float _moveSpeed;
     private Rigidbody _rigidBody;
+    private NavMeshAgent _navMeshAgent;
     private Radarable _radarable;
 
     public bool isRadarOn;
@@ -22,6 +24,7 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
         _radarable = GetComponent<Radarable>();
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         myCollider = GetComponent<BoxCollider>();
@@ -64,7 +67,8 @@ public class Enemy : MonoBehaviour
         // moves the enemy straight towards the player
         var myPos = transform.position;
         targetPos = player.transform.position;
-        _rigidBody.velocity =  (targetPos - myPos).normalized * _moveSpeed * Time.deltaTime;
+        //_rigidBody.velocity =  (targetPos - myPos).normalized * _moveSpeed * Time.deltaTime;
+        _navMeshAgent.destination = targetPos;
     }
 
     public void ResumeNormalBehavior()
@@ -76,9 +80,12 @@ public class Enemy : MonoBehaviour
             Vector2 onUnityCircle = Random.insideUnitCircle;
             float distance = Random.Range(minDistanceTarget, maxDistanceTarget);
             targetPos = myPos + new Vector3(onUnityCircle.x,0.0f,onUnityCircle.y) * distance;
+            _navMeshAgent.destination = targetPos;
         }
+        Debug.DrawLine(targetPos + new Vector3(-1, 0, 0), targetPos + new Vector3(1, 0, 0));
         // continue in the target point direction
-        _rigidBody.velocity = (targetPos - myPos).normalized * _moveSpeed * Time.deltaTime;
+        //_rigidBody.velocity = (targetPos - myPos).normalized * _moveSpeed * Time.deltaTime;
+
     }
 }
 

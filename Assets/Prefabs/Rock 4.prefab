@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33907323303284638}
   - component: {fileID: 23826032082709896}
   - component: {fileID: 65678699715797176}
+  - component: {fileID: 208127265893266484}
   m_Layer: 0
   m_Name: Rock 4
   m_TagString: Untagged
@@ -35,13 +36,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1792305873443556}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -4.341891, y: 5.426263, z: 0.14263773}
-  m_LocalScale: {x: 100, y: 99.99997, z: 122.5358}
+  m_LocalRotation: {x: -0.64510435, y: 0.28955227, z: 0.2895522, w: 0.6451042}
+  m_LocalPosition: {x: -9.07, y: -28.68, z: -2.76}
+  m_LocalScale: {x: 188.82289, y: 188.82281, z: 231.37561}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 48.345}
 --- !u!23 &23826032082709896
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -95,3 +96,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.025298215, y: 0.023193328, z: 0.017004834}
   m_Center: {x: -0.005088292, y: 0.0031688465, z: -0.0022333579}
+--- !u!208 &208127265893266484
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1792305873443556}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.013, y: 0.012, z: 0.009000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.0050000004, y: 0.003, z: -0.002}
+  m_TimeToStationary: 0.5
