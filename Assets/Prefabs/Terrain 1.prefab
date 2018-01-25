@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23553939466123610}
   - component: {fileID: 64145709592875316}
   m_Layer: 0
-  m_Name: Turrein 1
+  m_Name: Terrain 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
