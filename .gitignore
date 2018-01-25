@@ -76,3 +76,4 @@ web/Release
 # Custom
 Assets/Plugins/Editor/JetBrains
 ProjectSettings/ProjectVersion.txt
+.vs/
