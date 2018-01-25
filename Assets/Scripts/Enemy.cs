@@ -19,8 +19,11 @@ public class Enemy : MonoBehaviour
 
     private PlayerController player;
     private BoxCollider myCollider;
-    private Vector3 lastPlayerPos;
+    private Vector3 topRightCnr;
+    private Vector3 lowLeftCnr;
 
+    private static BoxCollider[] obstacles;
+    
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody>();
@@ -29,12 +32,28 @@ public class Enemy : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         myCollider = GetComponent<BoxCollider>();
         targetPos = transform.position;
+        topRightCnr = GameObject.Find("TopRightCnr").GetComponent<Transform>().position;
+        lowLeftCnr = GameObject.Find("LowLeftCnr").GetComponent<Transform>().position;
     }
 
     private void Start()
     {
         _radarable.OnRadarHitEvent += TurnRadarStateOn;
         _radarable.OnRadarEndEvent += TurnRadarStateOff;
+        if (obstacles == null)
+        {
+            //int k;
+            //int numObstacles = GameObject.FindGameObjectsWithTag("Obstacle").Length;
+            // initialize the walls in the scene
+            //rocks = new GameObject[numObstacles];
+            //obstacles = new Collider[numObstacles];
+            GameObject[] rocks;
+            rocks = GameObject.FindGameObjectsWithTag("Obstacle");
+            obstacles = new BoxCollider[rocks.Length];
+            for (int k = 0; k < rocks.Length; k++) {
+                obstacles[k] = rocks[k].GetComponent<BoxCollider>();
+            }
+        }
     }
 
     // Update is called once per frame
@@ -75,7 +94,7 @@ public class Enemy : MonoBehaviour
 	{
         var myPos = transform.position;
         // Check if reached the destination
-        if (Vector3.Distance(myPos, targetPos) < myCollider.size.x/2) {
+        if (Vector3.Distance(myPos, targetPos) < myCollider.size.x || !isValidInTerrain(targetPos)) {
             // if reached the goal destination (and the player isn't there, o.w will game over), choose a new destination
             Vector2 onUnityCircle = Random.insideUnitCircle;
             float distance = Random.Range(minDistanceTarget, maxDistanceTarget);
@@ -87,6 +106,25 @@ public class Enemy : MonoBehaviour
         //_rigidBody.velocity = (targetPos - myPos).normalized * _moveSpeed * Time.deltaTime;
 
     }
+
+
+    private bool isValidInTerrain(Vector3 pos)
+    {
+        // Ruterns true if is inside the board and is not inside an obstacle
+
+        if (lowLeftCnr.x > pos.x || pos.x > topRightCnr.x || lowLeftCnr.z > pos.z || pos.z > topRightCnr.z) { 
+            return false;
+        }
+
+        for (int i = 0; i < obstacles.Length; i++)
+        {
+            if (obstacles[i].bounds.Contains(pos)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
 
 
