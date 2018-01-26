@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] float _moveSpeed;
 	private Rigidbody _rigidBody;
 
+	private bool _paused;
+
 	private void Awake()
 	{
 		_rigidBody = GetComponent<Rigidbody>();
@@ -25,7 +27,45 @@ public class PlayerController : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
+			if (_paused)
+			{
+				TogglePause();
+				return;
+			}
+			
 			Instantiate(_radar, transform.position, Quaternion.identity);
+		}
+
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			TogglePause();
+		}
+	}
+
+	private void TogglePause()
+	{
+		Time.timeScale = _paused ? 1f : 0f;
+		_paused = !_paused;
+	}
+
+	private void OnGUI()
+	{
+		if (!_paused)
+		{
+			return;
+		}
+
+		var middleRect = new Rect(Screen.width / 2 - 175, Screen.height / 2 - 60, 350, 120);
+		var middleStyle =
+			new GUIStyle {fontSize = 60, alignment = TextAnchor.MiddleCenter, normal = {textColor = Color.white}}; 
+		
+		GUI.Label(middleRect, "PAUSED", middleStyle);
+
+		middleRect.y += 120;
+
+		if (GUI.Button(middleRect, "Back to Menu", new GUIStyle(GUI.skin.button) { fontSize = 50}))
+		{
+			SceneManager.LoadScene(0);
 		}
 	}
 
@@ -33,10 +73,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Enemy"))
 		{
-			Debug.Log("You Lost!");
 			GetComponent<AudioSource>().PlayOneShot(_loseClip);
-//			SceneManager.LoadScene(0);
-//			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
 			Instantiate(_loseUI);
 			Time.timeScale = 0f;
 			return;
@@ -44,7 +81,6 @@ public class PlayerController : MonoBehaviour
 
 		if (collision.gameObject.CompareTag("Goal"))
 		{
-			Debug.Log("You Won!");
 			GetComponent<AudioSource>().PlayOneShot(_winClip);
 			Instantiate(_winUI);
 			Time.timeScale = 0f;
