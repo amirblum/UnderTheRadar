@@ -765,7 +765,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Avoid fire at all costs!
+  m_Text: Avoid evil fire spirits at all costs!
 --- !u!222 &769086416
 CanvasRenderer:
   m_ObjectHideFlags: 0
