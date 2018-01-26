@@ -209,4 +209,4 @@ MonoBehaviour:
   _loseUI: {fileID: 1562418044075860, guid: 31f7be10c4f144396b14d0a8f6656504, type: 2}
   _loseClip: {fileID: 8300000, guid: e6dc71ad17e03ad43b48a578254b3f61, type: 3}
   _radar: {fileID: 114961202430577702, guid: 5fea12632e1f9475fb0ce4cee4fc489a, type: 2}
-  _moveSpeed: 400
+  _moveSpeed: 300
