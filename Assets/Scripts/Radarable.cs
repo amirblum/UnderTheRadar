@@ -7,19 +7,16 @@ using UnityEngine;
 public class Radarable : MonoBehaviour
 {
 	private MeshRenderer _mesh;
-	private Material _material;
 
 	private float _alpha;
 
 	public event Action OnRadarHitEvent;
 	public event Action OnRadarEndEvent;
 
-	private void Awake()
+	private void Start()
 	{
 		_mesh = GetComponent<MeshRenderer>();
 		_mesh.enabled = false;
-
-		_material = _mesh.material;
 	}
 
 	public void OnRadarHit(float duration)
@@ -39,15 +36,17 @@ public class Radarable : MonoBehaviour
 		
 		GetComponent<AudioSource>().Play();
 
-		var currentAlpha = 1f;
-		
-		while (currentAlpha >= 0f)
+		var currentTime = 0f;
+		while (currentTime <= duration)
 		{
-			currentAlpha -= Time.deltaTime * duration;
+			currentTime += Time.deltaTime;
+			var currentAlpha = Mathf.SmoothStep(1f, 0f, currentTime / duration);
 
-			var color = _material.color;
+			Debug.Log(name + " setting alpha to " + currentAlpha);
+			
+			var color = _mesh.material.GetColor("_Color");
 			color.a = currentAlpha;
-			_material.color = color;
+			_mesh.material.SetColor("_Color", color);
 			
 			yield return null;
 		}
