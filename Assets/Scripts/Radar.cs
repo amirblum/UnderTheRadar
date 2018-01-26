@@ -31,7 +31,7 @@ public class Radar : MonoBehaviour
 //		}
 		
 		var color = _material.color;
-		color.a = Mathf.SmoothStep(0.5f, 0f, _size / _maxSize);
+		color.a = Mathf.Lerp(0.3f, 0f, _size / _maxSize);
 //		color.a = _fadeOutCurve.Evaluate(_size / _maxSize);
 		_material.color = color;
 		
