@@ -178,7 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxSize: 100
   _growSpeed: 75
-  _growDirection: {x: 1, y: 0.5, z: 1}
+  _growDirection: {x: 1, y: 0.25, z: 1}
   _hitDuration: 1
   _fadeOutCurve:
     serializedVersion: 2
