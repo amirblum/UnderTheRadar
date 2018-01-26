@@ -32,7 +32,7 @@ public class Radarable : MonoBehaviour
 			OnRadarHitEvent();
 		}
 		
-		_mesh.enabled = true;
+		ShowMesh();
 		
 		GetComponent<AudioSource>().Play();
 
@@ -41,8 +41,6 @@ public class Radarable : MonoBehaviour
 		{
 			currentTime += Time.deltaTime;
 			var currentAlpha = Mathf.SmoothStep(1f, 0f, currentTime / duration);
-
-			Debug.Log(name + " setting alpha to " + currentAlpha);
 			
 			var color = _mesh.material.GetColor("_Color");
 			color.a = currentAlpha;
@@ -51,11 +49,21 @@ public class Radarable : MonoBehaviour
 			yield return null;
 		}
 		
-		_mesh.enabled = false;
+		HideMesh();
 		
 		if (OnRadarEndEvent != null)
 		{
 			OnRadarEndEvent();
 		}
+	}
+
+	public void ShowMesh()
+	{
+		_mesh.enabled = true;
+	}
+
+	public void HideMesh()
+	{
+		_mesh.enabled = false;
 	}
 }

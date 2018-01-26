@@ -12,6 +12,11 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] AudioClip _loseClip;
 	[SerializeField] Radar _radar;
 	[SerializeField] float _moveSpeed;
+
+	[SerializeField] Transform _lastKnownPositionSphere;
+	private Vector3 _lastKnownPosition;
+	private float _lastRadarTime;
+	
 	private Rigidbody _rigidBody;
 
 	private bool _paused;
@@ -34,11 +39,22 @@ public class PlayerController : MonoBehaviour
 			}
 			
 			Instantiate(_radar, transform.position, Quaternion.identity);
+			_lastKnownPositionSphere.localPosition = Vector3.zero;
+			_lastRadarTime = Time.timeSinceLevelLoad;
 		}
 
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			TogglePause();
+		}
+
+		if (_lastRadarTime + _radar.GetDuration() < Time.timeSinceLevelLoad)
+		{
+			_lastKnownPositionSphere.position = _lastKnownPosition;
+		}
+		else
+		{
+			_lastKnownPosition = transform.position;
 		}
 	}
 
@@ -73,6 +89,8 @@ public class PlayerController : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Enemy"))
 		{
+			collision.gameObject.GetComponent<Radarable>().ShowMesh();
+			
 			GetComponent<AudioSource>().PlayOneShot(_loseClip);
 			Instantiate(_loseUI);
 			Time.timeScale = 0f;
@@ -81,6 +99,8 @@ public class PlayerController : MonoBehaviour
 
 		if (collision.gameObject.CompareTag("Goal"))
 		{
+			collision.gameObject.GetComponent<Radarable>().ShowMesh();
+			
 			GetComponent<AudioSource>().PlayOneShot(_winClip);
 			Instantiate(_winUI);
 			Time.timeScale = 0f;

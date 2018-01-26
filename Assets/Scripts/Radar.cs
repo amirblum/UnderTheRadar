@@ -50,9 +50,14 @@ public class Radar : MonoBehaviour
 
 		if (radarable == null)
 		{
-			return;
+			return;	
 		}
 
 		radarable.OnRadarHit(_hitDuration);
+	}
+
+	public float GetDuration()
+	{
+		return _maxSize / _growSpeed;
 	}
 }

@@ -23,6 +23,8 @@ public class Enemy : MonoBehaviour
     private Vector3 lowLeftCnr;
 
     private static BoxCollider[] obstacles;
+
+    private float _waitAtTargetDelay;
     
     private void Awake()
     {
@@ -84,6 +86,7 @@ public class Enemy : MonoBehaviour
     private void TurnRadarStateOff()
     {
         isRadarOn = false;
+        _waitAtTargetDelay = 1f;
     }
 
     public void MoveToPlayer()
@@ -100,11 +103,18 @@ public class Enemy : MonoBehaviour
         var myPos = transform.position;
         // Check if reached the destination
         if (Vector3.Distance(myPos, targetPos) < myCollider.size.x || !isValidInTerrain(targetPos)) {
-            // if reached the goal destination (and the player isn't there, o.w will game over), choose a new destination
-            Vector2 onUnityCircle = Random.insideUnitCircle;
-            float distance = Random.Range(minDistanceTarget, maxDistanceTarget);
-            targetPos = myPos + new Vector3(onUnityCircle.x,0.0f,onUnityCircle.y) * distance;
-            _navMeshAgent.destination = targetPos;
+            if (_waitAtTargetDelay > 0)
+            {
+                _waitAtTargetDelay -= Time.deltaTime;
+            }
+            else
+            {
+                // if reached the goal destination (and the player isn't there, o.w will game over), choose a new destination
+                Vector2 onUnityCircle = Random.insideUnitCircle;
+                float distance = Random.Range(minDistanceTarget, maxDistanceTarget);
+                targetPos = myPos + new Vector3(onUnityCircle.x, 0.0f, onUnityCircle.y) * distance;
+                _navMeshAgent.destination = targetPos;
+            }
         }
         Debug.DrawLine(targetPos + new Vector3(-1, 0, 0), targetPos + new Vector3(1, 0, 0));
         // continue in the target point direction
